@@ -1,4 +1,4 @@
-﻿using Jogo_Tecnicas.Source;
+﻿using Jogo_Tecnicas.Entities.Player;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -10,6 +10,7 @@ namespace Jogo_Tecnicas.Source
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
         private Texture2D playerSprite;
+        
 
         private Player player;
         public Game1()
@@ -22,23 +23,26 @@ namespace Jogo_Tecnicas.Source
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
+            _graphics.PreferredBackBufferWidth = 1080;
+            _graphics.PreferredBackBufferHeight = 1920;
+            _graphics.ApplyChanges(); 
 
             base.Initialize();
         }
 
         protected override void LoadContent()
         {
-            _spriteBatch = new SpriteBatch(GraphicsDevice);
-            playerSprite = Content.Load<Texture2D>("");
+        _spriteBatch = new SpriteBatch(GraphicsDevice);
+         
 
-          player =  new Player(playerSprite);
-            // TODO: use this.Content to load your game content here
+          player =  new Player(Content.Load<Texture2D>("player"));
+            
         }
 
         protected override void Update(GameTime gameTime)
         {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-                Exit();
+            //if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
+            //    Exit();
 
             // TODO: Add your update logic here
             player.Update();
@@ -51,7 +55,7 @@ namespace Jogo_Tecnicas.Source
             _spriteBatch.Begin();
             player.Draw(_spriteBatch);
             _spriteBatch.End();
-            // TODO: Add your drawing code here
+            //// TODO: Add your drawing code here
 
             base.Draw(gameTime);
         }
